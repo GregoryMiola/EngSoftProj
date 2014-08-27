@@ -43,7 +43,7 @@ public class CadastroUsuario extends JFrame {
 	 */
 	public CadastroUsuario() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 294);
+		setBounds(100, 100, 415, 266);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -54,15 +54,15 @@ public class CadastroUsuario extends JFrame {
 		contentPane.add(lblCadastroUsurio);
 		
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(10, 56, 57, 14);
+		lblNome.setBounds(10, 62, 57, 14);
 		contentPane.add(lblNome);
 		
 		JLabel lblNewLabel = new JLabel("Username:");
-		lblNewLabel.setBounds(10, 127, 89, 14);
+		lblNewLabel.setBounds(10, 112, 89, 14);
 		contentPane.add(lblNewLabel);
 		
 		textNome = new JTextField();
-		textNome.setBounds(77, 53, 313, 20);
+		textNome.setBounds(77, 59, 313, 20);
 		contentPane.add(textNome);
 		textNome.setColumns(10);
 		
@@ -72,7 +72,7 @@ public class CadastroUsuario extends JFrame {
 		textCargo.setColumns(10);
 		
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(10, 224, 89, 23);
+		btnSalvar.setBounds(10, 195, 89, 23);
 		contentPane.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -81,7 +81,7 @@ public class CadastroUsuario extends JFrame {
 				fecharJanela();
 			}
 		});
-		btnCancelar.setBounds(335, 224, 89, 23);
+		btnCancelar.setBounds(301, 193, 89, 23);
 		contentPane.add(btnCancelar);
 		
 		JLabel lblCargo = new JLabel("Cargo:");
@@ -90,16 +90,16 @@ public class CadastroUsuario extends JFrame {
 		
 		textUsername = new JTextField();
 		textUsername.setColumns(10);
-		textUsername.setBounds(77, 124, 155, 20);
+		textUsername.setBounds(77, 109, 155, 20);
 		contentPane.add(textUsername);
 		
 		JLabel lblSenha = new JLabel("Senha:");
-		lblSenha.setBounds(10, 166, 77, 14);
+		lblSenha.setBounds(10, 137, 77, 14);
 		contentPane.add(lblSenha);
 		
 		textSenha = new JTextField();
 		textSenha.setColumns(10);
-		textSenha.setBounds(77, 163, 155, 20);
+		textSenha.setBounds(77, 134, 155, 20);
 		contentPane.add(textSenha);
 	}
 

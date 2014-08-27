@@ -40,7 +40,7 @@ public class CadastroDispositivo extends JFrame {
 	 */
 	public CadastroDispositivo() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 260);
+		setBounds(100, 100, 401, 241);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -51,7 +51,7 @@ public class CadastroDispositivo extends JFrame {
 		contentPane.add(lblCadastroDeDispositivo);
 		
 		JLabel lblNewLabel = new JLabel("Nome:");
-		lblNewLabel.setBounds(10, 47, 60, 14);
+		lblNewLabel.setBounds(10, 60, 60, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Endere\u00E7o:");
@@ -59,11 +59,11 @@ public class CadastroDispositivo extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Tipo:");
-		lblNewLabel_2.setBounds(10, 124, 75, 14);
+		lblNewLabel_2.setBounds(10, 110, 75, 14);
 		contentPane.add(lblNewLabel_2);
 		
 		textNome = new JTextField();
-		textNome.setBounds(66, 44, 308, 20);
+		textNome.setBounds(67, 57, 308, 20);
 		contentPane.add(textNome);
 		textNome.setColumns(10);
 		
@@ -73,16 +73,16 @@ public class CadastroDispositivo extends JFrame {
 		textEndereco.setColumns(10);
 		
 		textTipo = new JTextField();
-		textTipo.setBounds(66, 121, 155, 20);
+		textTipo.setBounds(66, 107, 155, 20);
 		contentPane.add(textTipo);
 		textTipo.setColumns(10);
 		
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(10, 191, 89, 23);
+		btnSalvar.setBounds(10, 170, 89, 23);
 		contentPane.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(335, 191, 89, 23);
+		btnCancelar.setBounds(286, 170, 89, 23);
 		contentPane.add(btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
