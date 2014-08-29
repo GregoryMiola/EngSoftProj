@@ -6,13 +6,26 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.GridLayout;
+
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.ButtonGroup;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JRadioButton;
+import javax.swing.JToggleButton;
+
+import sun.awt.image.PixelConverter.Bgrx;
 
 public class CadastroUsuario extends JFrame {
 
@@ -21,6 +34,8 @@ public class CadastroUsuario extends JFrame {
 	private JTextField textCargo;
 	private JTextField textUsername;
 	private JTextField textSenha;
+	private ButtonGroup buttonGroup = new ButtonGroup();
+	private final Action action = new SwingAction();
 
 	/**
 	 * Launch the application.
@@ -43,7 +58,7 @@ public class CadastroUsuario extends JFrame {
 	 */
 	public CadastroUsuario() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 415, 266);
+		setBounds(100, 100, 415, 326);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -72,7 +87,17 @@ public class CadastroUsuario extends JFrame {
 		textCargo.setColumns(10);
 		
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(10, 195, 89, 23);
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean validaCampos = validaCampos();
+				
+				if(validaCampos)
+					salvarUsuario();
+				else
+					lancaMsgUsuario();
+			}
+		});
+		btnSalvar.setBounds(10, 254, 89, 23);
 		contentPane.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -81,7 +106,7 @@ public class CadastroUsuario extends JFrame {
 				fecharJanela();
 			}
 		});
-		btnCancelar.setBounds(301, 193, 89, 23);
+		btnCancelar.setBounds(301, 252, 89, 23);
 		contentPane.add(btnCancelar);
 		
 		JLabel lblCargo = new JLabel("Cargo:");
@@ -101,10 +126,71 @@ public class CadastroUsuario extends JFrame {
 		textSenha.setColumns(10);
 		textSenha.setBounds(77, 134, 155, 20);
 		contentPane.add(textSenha);
+		
+		JLabel lblNewLabel_1 = new JLabel("N\u00EDvel:");
+		lblNewLabel_1.setBounds(10, 162, 47, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		JPanel rdbPanel = new JPanel();
+		rdbPanel.setBounds(77, 156, 72, 56);
+				
+		JRadioButton rdbGerente = new JRadioButton("Gerente");
+		rdbGerente.setSelected(true);
+		//rdbGerente.setBounds(77, 158, 109, 23);
+		
+		JRadioButton rdbTecnico = new JRadioButton("T\u00E9cnico");
+		//rdbTecnico.setBounds(77, 184, 109, 23);
+		
+		buttonGroup = new ButtonGroup();
+		buttonGroup.add(rdbGerente);
+		buttonGroup.add(rdbTecnico);
+	    
+	    //rdbPanel.setLayout(new GridLayout(2, 1));
+	    rdbPanel.add(rdbGerente);
+	    rdbPanel.add(rdbTecnico);
+	    contentPane.add(rdbPanel);
+	}
+
+	protected void lancaMsgUsuario() {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios.", "Validação de Campos", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	protected void salvarUsuario() {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(this, "OK.", "Validação de Campos", JOptionPane.CLOSED_OPTION);
+	}
+
+	protected boolean validaCampos() {
+		// TODO Auto-generated method stub
+		if(textNome.getText().isEmpty())
+			return false;
+		
+		if(textCargo.getText().isEmpty())
+			return false;
+		
+		if(textUsername.getText().isEmpty())
+			return false;
+		
+		if(textSenha.getText().isEmpty())
+			return false;
+		
+		if(!buttonGroup.getSelection().isSelected())
+			return false;
+		
+		return true;
 	}
 
 	protected void fecharJanela() {
 		// TODO Auto-generated method stub
 		setVisible(false);
+	}
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "SwingAction");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+		}
 	}
 }

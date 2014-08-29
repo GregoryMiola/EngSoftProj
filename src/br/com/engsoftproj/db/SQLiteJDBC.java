@@ -87,10 +87,10 @@ public class SQLiteJDBC
 	      {
 	    	  sql = "";
 	    	  sql = "INSERT INTO USUARIOS (ID, NOME, CARGO, USERNAME, PASSWORD, NIVEL_ACESSO)" +
-	    			  "VALUES (999, 'tectest', 'tectest', 'tectest', '123456', '2');"; 
+	    			  "VALUES (2, 'tectest', 'tectest', 'tectest', '123456', '2');"; 
 	    	  stmt.executeUpdate(sql);
 	      }
-	      
+	      	      
 	      stmt.close();
 	      c.close();
 	    } catch ( Exception e ) {
@@ -101,7 +101,6 @@ public class SQLiteJDBC
 	  }
 	  
 	public static Usuario verificaLogin(String user, String passwd) {
-		boolean result = false;
 		Usuario loged = null;  
 		
 		try{
@@ -130,4 +129,40 @@ public class SQLiteJDBC
 		  
 	  	return loged;
   	}
+	
+	public static void insereUsuario(Usuario user) {
+				
+		try{
+			c = DriverManager.getConnection("jdbc:sqlite:sistema.db");
+			stmt = c.createStatement();
+					  
+			int maxId = getMaxIdUser(c, stmt);
+			if(maxId == 0)
+				throw new Exception("Não foi possível encontrar Max(id) do usuário.");
+			
+			String  sql = String.format("INSERT INTO USUARIOS (ID, NOME, CARGO, USERNAME, PASSWORD, NIVEL_ACESSO) VALUES (%d, '%s', '%s', '%s', '%s', '%c');", 
+					maxId+1, user.getNome(), user.getCargo(), user.getUsername(), user.getPassword(), user.getNivelAcesso()); 
+    	    stmt.executeUpdate(sql);
+			
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+  	  	}
+  	}
+
+	private static int getMaxIdUser(Connection c, Statement stmt) {
+		// TODO Auto-generated method stub
+		try{
+			String sql = "SELECT MAX(ID) FROM USUARIOS;";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				return rs.getInt("ID");
+			}
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+  	  	}
+		
+		return 0;
+	}
 }
