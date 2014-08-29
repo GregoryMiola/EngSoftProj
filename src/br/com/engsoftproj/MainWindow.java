@@ -12,6 +12,7 @@ import br.com.engsoftproj.cadastros.CadastroDispositivo;
 import br.com.engsoftproj.cadastros.CadastroMudancas;
 import br.com.engsoftproj.cadastros.CadastroUsuario;
 import br.com.engsoftproj.datamenbers.Usuario;
+import br.com.engsoftproj.enumerators.NivelAcesso;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -47,20 +48,20 @@ public class MainWindow extends JFrame {
 		this.usuario = logado;
 		this.usuarioLogado = logado.getUsername();
 		
-		MontaTela();
+		montaTela();
 	}
 	
 	public MainWindow(String user, String passwd) {
 		this.usuarioLogado = user;
 		
-		MontaTela();
+		montaTela();
 	}
 	
 	public MainWindow() {
-		MontaTela();
+		montaTela();
 	}
 	
-	private void MontaTela(){
+	private void montaTela(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -75,8 +76,7 @@ public class MainWindow extends JFrame {
 			}
 		});
 		btnCadUser.setBounds(145, 82, 106, 23);
-		contentPane.add(btnCadUser);
-		
+				
 		JButton btnCadDev = new JButton("Dispositivos");
 		btnCadDev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -84,8 +84,7 @@ public class MainWindow extends JFrame {
 			}
 		});
 		btnCadDev.setBounds(145, 116, 106, 23);
-		contentPane.add(btnCadDev);
-		
+				
 		JButton btnCadEvents = new JButton("Eventos");
 		btnCadEvents.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -93,21 +92,28 @@ public class MainWindow extends JFrame {
 			}
 		});
 		btnCadEvents.setBounds(145, 150, 106, 23);
-		contentPane.add(btnCadEvents);
-		
+				
 		JLabel lblCadastro = new JLabel("Cadastro");
 		lblCadastro.setBounds(174, 57, 55, 14);
-		contentPane.add(lblCadastro);
 		
 		JLabel lblNewLabel = new JLabel("Usu\u00E1rio Logado:");
 		lblNewLabel.setBounds(10, 11, 95, 14);
-		contentPane.add(lblNewLabel);
-		
+				
 		JLabel lblUsuario = new JLabel(this.usuarioLogado);
 		lblUsuario.setBounds(107, 11, 134, 14);
-		contentPane.add(lblUsuario);		
+		
+		if(usuario.getNivelAcesso() == NivelAcesso.TECNICO){
+			btnCadUser.setEnabled(false);
+		}
+		
+		contentPane.add(btnCadUser);
+		contentPane.add(btnCadDev);
+		contentPane.add(btnCadEvents);
+		contentPane.add(lblCadastro);
+		contentPane.add(lblNewLabel);
+		contentPane.add(lblUsuario);
 	}
-	
+
 	private void abreCadastroUsuario() {
 		// TODO Auto-generated method stub
 		CadastroUsuario f = new CadastroUsuario();

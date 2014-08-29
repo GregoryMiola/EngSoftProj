@@ -81,6 +81,16 @@ public class SQLiteJDBC
 	    	  stmt.executeUpdate(sql);
 	      }
 	      
+	      sql = "SELECT * FROM USUARIOS WHERE NOME = 'tectest' AND NIVEL_ACESSO = '2';";
+	      rs = stmt.executeQuery(sql);
+	      if(!rs.next())
+	      {
+	    	  sql = "";
+	    	  sql = "INSERT INTO USUARIOS (ID, NOME, CARGO, USERNAME, PASSWORD, NIVEL_ACESSO)" +
+	    			  "VALUES (999, 'tectest', 'tectest', 'tectest', '123456', '2');"; 
+	    	  stmt.executeUpdate(sql);
+	      }
+	      
 	      stmt.close();
 	      c.close();
 	    } catch ( Exception e ) {
