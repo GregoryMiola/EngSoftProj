@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import br.com.engsoftproj.cadastros.CadastroDispositivo;
 import br.com.engsoftproj.cadastros.CadastroMudancas;
 import br.com.engsoftproj.cadastros.CadastroUsuario;
+import br.com.engsoftproj.datamenbers.Usuario;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -18,8 +19,8 @@ import java.awt.event.ActionEvent;
 
 public class MainWindow extends JFrame {
 
-	private String usuario;
-	private String senha;
+	private String usuarioLogado;
+	private Usuario usuario;
 	
 	private JPanel contentPane;
 
@@ -42,9 +43,15 @@ public class MainWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public MainWindow(Usuario logado) {
+		this.usuario = logado;
+		this.usuarioLogado = logado.getUsername();
+		
+		MontaTela();
+	}
+	
 	public MainWindow(String user, String passwd) {
-		this.usuario = user;
-		this.senha = passwd;
+		this.usuarioLogado = user;
 		
 		MontaTela();
 	}
@@ -96,7 +103,7 @@ public class MainWindow extends JFrame {
 		lblNewLabel.setBounds(10, 11, 95, 14);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblUsuario = new JLabel(this.usuario);
+		JLabel lblUsuario = new JLabel(this.usuarioLogado);
 		lblUsuario.setBounds(107, 11, 134, 14);
 		contentPane.add(lblUsuario);		
 	}

@@ -7,10 +7,18 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import com.sun.xml.internal.ws.api.message.Message;
+
+import br.com.engsoftproj.datamenbers.Usuario;
+import br.com.engsoftproj.db.SQLiteJDBC;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.security.MessageDigest;
 
 public class Login extends JFrame {
 
@@ -70,16 +78,24 @@ public class Login extends JFrame {
 		JButton btnAcessar = new JButton("Acessar");
 		btnAcessar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Logar();
+				Logar(textUser.getText(), textPasswd.getText());
 			}
 		});
 		btnAcessar.setBounds(73, 184, 89, 23);
 		contentPane.add(btnAcessar);
 	}
 
-	protected void Logar() {
+	protected void Logar(String user, String passwd) {
 		// TODO Auto-generated method stub
-		MainWindow mw = new MainWindow(textUser.getText(), textPasswd.getText());
-		mw.setVisible(true);
+		Usuario usuarioLogado = SQLiteJDBC.verificaLogin(user, passwd);
+		if(usuarioLogado != null){
+			MainWindow mw = new MainWindow(usuarioLogado);
+			mw.setVisible(true);
+			this.dispose();
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos.", "Login error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

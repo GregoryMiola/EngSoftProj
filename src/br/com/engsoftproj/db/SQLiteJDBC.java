@@ -2,15 +2,17 @@ package br.com.engsoftproj.db;
 
 import java.sql.*;
 
+import br.com.engsoftproj.datamenbers.Usuario;
 import br.com.engsoftproj.enumerators.NivelAcesso;
 
 public class SQLiteJDBC
 {
+	private static Connection c = null;
+	private static Statement stmt = null;
 	static final String JDBC_DRIVER = "org.sqlite.JDBC";
+	
 	public static void main( String args[] )
-	{
-	    Connection c = null;
-	    Statement stmt = null;
+	{	    
 	    try {
 	      Class.forName(JDBC_DRIVER);
 	      c = DriverManager.getConnection("jdbc:sqlite:sistema.db");
@@ -88,16 +90,34 @@ public class SQLiteJDBC
 	    System.out.println("Table created successfully");
 	  }
 	  
-	  public void verificaLogin(String user, String passwd) {
-		  /*
-		  SQLiteDatabase db = this.getWritableDatabase();
-		  ContentValues values = new ContentValues();
-		  values.put(KEY_NAME, contact.getName()); // Contact Name
-		  values.put(KEY_PH_NO, contact.getPhoneNumber()); // Contact Phone
-		  values.put(KEY_EMAIL, contact.getEmail()); // Contact Email
-		  // Inserting Row
-		  db.insert(TABLE_CONTACTS, null, values);
-		  db.close(); // Closing database connection
-		  */
-	  }
+	public static Usuario verificaLogin(String user, String passwd) {
+		boolean result = false;
+		Usuario loged = null;  
+		
+		try{
+			c = DriverManager.getConnection("jdbc:sqlite:sistema.db");
+			stmt = c.createStatement();
+					  
+			String sql = "SELECT * FROM USUARIOS WHERE USERNAME = '" + user + "' AND PASSWORD = '" + passwd + "';";
+			ResultSet rs = stmt.executeQuery(sql);
+	      
+			while (rs.next()) {
+				loged = new Usuario();
+		        loged.setId(rs.getInt("ID"));
+		        loged.setNome(rs.getString("NOME"));
+		        loged.setCargo(rs.getString("CARGO"));
+		        loged.setUsername(rs.getString("USERNAME"));
+		        loged.setPassword(rs.getString("PASSWORD"));
+		        loged.setNivelAcesso(NivelAcesso.values()[rs.getInt("NIVEL_ACESSO")]);
+		        break;
+			}
+			
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+  	  	}
+		  
+	  	return loged;
+  	}
 }
