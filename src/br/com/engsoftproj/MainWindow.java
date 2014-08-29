@@ -18,6 +18,9 @@ import java.awt.event.ActionEvent;
 
 public class MainWindow extends JFrame {
 
+	private String usuario;
+	private String senha;
+	
 	private JPanel contentPane;
 
 	/**
@@ -39,7 +42,18 @@ public class MainWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public MainWindow(String user, String passwd) {
+		this.usuario = user;
+		this.senha = passwd;
+		
+		MontaTela();
+	}
+	
 	public MainWindow() {
+		MontaTela();
+	}
+	
+	private void MontaTela(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -77,6 +91,14 @@ public class MainWindow extends JFrame {
 		JLabel lblCadastro = new JLabel("Cadastro");
 		lblCadastro.setBounds(174, 57, 55, 14);
 		contentPane.add(lblCadastro);
+		
+		JLabel lblNewLabel = new JLabel("Usu\u00E1rio Logado:");
+		lblNewLabel.setBounds(10, 11, 95, 14);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblUsuario = new JLabel(this.usuario);
+		lblUsuario.setBounds(107, 11, 134, 14);
+		contentPane.add(lblUsuario);		
 	}
 	
 	private void abreCadastroUsuario() {
