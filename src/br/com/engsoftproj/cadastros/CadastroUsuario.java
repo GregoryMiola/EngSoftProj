@@ -25,6 +25,10 @@ import javax.swing.Action;
 import javax.swing.JRadioButton;
 import javax.swing.JToggleButton;
 
+import br.com.engsoftproj.datamenbers.Usuario;
+import br.com.engsoftproj.db.SQLiteJDBC;
+import br.com.engsoftproj.enumerators.NivelAcesso;
+
 import sun.awt.image.PixelConverter.Bgrx;
 
 public class CadastroUsuario extends JFrame {
@@ -89,12 +93,7 @@ public class CadastroUsuario extends JFrame {
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean validaCampos = validaCampos();
-				
-				if(validaCampos)
-					salvarUsuario();
-				else
-					lancaMsgUsuario();
+				cadastraUsuario();
 			}
 		});
 		btnSalvar.setBounds(10, 254, 89, 23);
@@ -136,9 +135,11 @@ public class CadastroUsuario extends JFrame {
 				
 		JRadioButton rdbGerente = new JRadioButton("Gerente");
 		rdbGerente.setSelected(true);
+		rdbGerente.setActionCommand("1");
 		//rdbGerente.setBounds(77, 158, 109, 23);
 		
 		JRadioButton rdbTecnico = new JRadioButton("T\u00E9cnico");
+		rdbTecnico.setActionCommand("2");
 		//rdbTecnico.setBounds(77, 184, 109, 23);
 		
 		buttonGroup = new ButtonGroup();
@@ -151,6 +152,16 @@ public class CadastroUsuario extends JFrame {
 	    contentPane.add(rdbPanel);
 	}
 
+	protected void cadastraUsuario() {
+		// TODO Auto-generated method stub
+		boolean validaCampos = validaCampos();
+		
+		if(validaCampos)
+			salvarUsuario();
+		else
+			lancaMsgUsuario();
+	}
+
 	protected void lancaMsgUsuario() {
 		// TODO Auto-generated method stub
 		JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios.", "Validação de Campos", JOptionPane.INFORMATION_MESSAGE);
@@ -158,7 +169,19 @@ public class CadastroUsuario extends JFrame {
 
 	protected void salvarUsuario() {
 		// TODO Auto-generated method stub
-		JOptionPane.showMessageDialog(this, "OK.", "Validação de Campos", JOptionPane.CLOSED_OPTION);
+		int nivel = Integer.parseInt(buttonGroup.getSelection().getActionCommand());
+		
+		Usuario novo = new Usuario();
+		novo.setNome(textNome.getText());
+		novo.setCargo(textCargo.getText());
+		novo.setUsername(textUsername.getText());
+		novo.setPassword(textSenha.getText());
+		novo.setNivelAcesso(NivelAcesso.values()[nivel]);
+		
+		SQLiteJDBC.insereUsuario(novo);
+		
+		JOptionPane.showMessageDialog(this, "Usuário criado com sucesso.", "Usuário Criado", JOptionPane.INFORMATION_MESSAGE);
+		this.dispose();
 	}
 
 	protected boolean validaCampos() {
@@ -183,7 +206,7 @@ public class CadastroUsuario extends JFrame {
 
 	protected void fecharJanela() {
 		// TODO Auto-generated method stub
-		setVisible(false);
+		this.dispose();
 	}
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {

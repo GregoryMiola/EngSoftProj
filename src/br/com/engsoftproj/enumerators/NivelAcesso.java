@@ -7,4 +7,8 @@ public enum NivelAcesso {
 	private NivelAcesso(int value) {
             this.value = value;
     }
+	
+	public int getValue(){
+		return this.value;
+	}
 }
