@@ -1,0 +1,3 @@
+Arquivo gravado em : 30/08/2014 10:52:43
+Caminho da gravação: ./src/br/com/engsoftproj/file/write_test.txt
+Tempo de gravação: 32ms.
