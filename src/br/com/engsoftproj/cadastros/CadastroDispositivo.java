@@ -1,6 +1,5 @@
 package br.com.engsoftproj.cadastros;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,14 +8,21 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import br.com.engsoftproj.datamenbers.Dispositivo;
+
 public class CadastroDispositivo extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1612669659695419551L;
 	private JPanel contentPane;
 	private JTextField textNome;
-	private JTextField textEndereco;
+	private JTextField textCodigo;
 	private JTextField textTipo;
 
 	/**
@@ -54,7 +60,7 @@ public class CadastroDispositivo extends JFrame {
 		lblNewLabel.setBounds(10, 60, 60, 14);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Endere\u00E7o:");
+		JLabel lblNewLabel_1 = new JLabel("C\u00F3digo:");
 		lblNewLabel_1.setBounds(10, 85, 75, 14);
 		contentPane.add(lblNewLabel_1);
 		
@@ -67,10 +73,10 @@ public class CadastroDispositivo extends JFrame {
 		contentPane.add(textNome);
 		textNome.setColumns(10);
 		
-		textEndereco = new JTextField();
-		textEndereco.setBounds(66, 82, 155, 20);
-		contentPane.add(textEndereco);
-		textEndereco.setColumns(10);
+		textCodigo = new JTextField();
+		textCodigo.setBounds(66, 82, 155, 20);
+		contentPane.add(textCodigo);
+		textCodigo.setColumns(10);
 		
 		textTipo = new JTextField();
 		textTipo.setBounds(66, 107, 155, 20);
@@ -78,6 +84,11 @@ public class CadastroDispositivo extends JFrame {
 		textTipo.setColumns(10);
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cadastraDispositivo();
+			}
+		});
 		btnSalvar.setBounds(10, 170, 89, 23);
 		contentPane.add(btnSalvar);
 		
@@ -90,9 +101,53 @@ public class CadastroDispositivo extends JFrame {
 			}
 		});
 	}
+	
+	protected void cadastraDispositivo() {
+		// TODO Auto-generated method stub
+		boolean validaCampos = validaCampos();
+		
+		if(validaCampos)
+			salvarDispositivo();
+		else
+			lancaMsgDispositivo();
+	}
+
+	protected void lancaMsgDispositivo() {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios.", "Validação de Campos", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	protected void salvarDispositivo() {
+		// TODO Auto-generated method stub
+				
+		Dispositivo disp = new Dispositivo();
+		disp.setNOME(textNome.getText());
+		disp.setCODIGO(textCodigo.getText());
+		disp.setTIPO(textTipo.getText());
+		
+		CadastroDispositivoDAO.salvaDispositivo(disp);
+		
+		JOptionPane.showMessageDialog(this, "Dispositivo cadastrado com sucesso.", "Dispositivo Cadastrado", JOptionPane.INFORMATION_MESSAGE);
+		this.dispose();
+	}
+
+	protected boolean validaCampos() {
+		// TODO Auto-generated method stub
+		if(textNome.getText().isEmpty())
+			return false;
+		
+		if(textCodigo.getText().isEmpty())
+			return false;
+		
+		if(textTipo.getText().isEmpty())
+			return false;
+						
+		return true;
+	}
 
 	protected void fecharJanela() {
 		// TODO Auto-generated method stub
 		setVisible(false);
 	}
 }
+ 

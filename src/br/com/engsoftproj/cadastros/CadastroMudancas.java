@@ -1,31 +1,41 @@
 package br.com.engsoftproj.cadastros;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import br.com.engsoftproj.datamenbers.Mudanca;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class CadastroMudancas extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6827000325021049543L;
 	private JPanel contentPane;
 	private JTextField textTitulo;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
+	private JTextField textEquipamento;
+	private JTextField textGerente;
+	private JTextField textStatus;
+	private JTextField textDt_ini;
+	private JTextField textHr_ini;
+	private JTextField textDt_fim;
+	private JTextField textHr_fim;
+	private JTextField textArq_ini;
+	private JTextField textArq_fim;
+	private JTextField textCmd_aplic;
+	
 
 	/**
 	 * Launch the application.
@@ -79,33 +89,20 @@ public class CadastroMudancas extends JFrame {
 		contentPane.add(textTitulo);
 		textTitulo.setColumns(10);
 		
-		textField = new JTextField();
-		textField.setBounds(134, 75, 239, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textEquipamento = new JTextField();
+		textEquipamento.setBounds(134, 75, 239, 20);
+		contentPane.add(textEquipamento);
+		textEquipamento.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(134, 100, 239, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		textGerente = new JTextField();
+		textGerente.setBounds(134, 100, 239, 20);
+		contentPane.add(textGerente);
+		textGerente.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(134, 125, 120, 20);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
-		
-		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(10, 358, 89, 23);
-		contentPane.add(btnSalvar);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				fecharJanela();
-			}
-		});
-		btnCancelar.setBounds(284, 358, 89, 23);
-		contentPane.add(btnCancelar);
+		textStatus = new JTextField();
+		textStatus.setBounds(134, 125, 120, 20);
+		contentPane.add(textStatus);
+		textStatus.setColumns(10);		
 		
 		JLabel lblDataInicio = new JLabel("Data In\u00EDcio:");
 		lblDataInicio.setBounds(10, 156, 132, 14);
@@ -135,40 +132,148 @@ public class CadastroMudancas extends JFrame {
 		lblComandosAplicados.setBounds(10, 306, 132, 14);
 		contentPane.add(lblComandosAplicados);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(134, 153, 120, 20);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
+		textDt_ini = new JTextField();
+		textDt_ini.setBounds(134, 153, 120, 20);
+		contentPane.add(textDt_ini);
+		textDt_ini.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(134, 178, 120, 20);
-		contentPane.add(textField_4);
-		textField_4.setColumns(10);
+		textHr_ini = new JTextField();
+		textHr_ini.setBounds(134, 178, 120, 20);
+		contentPane.add(textHr_ini);
+		textHr_ini.setColumns(10);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(134, 203, 120, 20);
-		contentPane.add(textField_5);
-		textField_5.setColumns(10);
+		textDt_fim = new JTextField();
+		textDt_fim.setBounds(134, 203, 120, 20);
+		contentPane.add(textDt_fim);
+		textDt_fim.setColumns(10);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(134, 228, 120, 20);
-		contentPane.add(textField_6);
-		textField_6.setColumns(10);
+		textHr_fim = new JTextField();
+		textHr_fim.setBounds(134, 228, 120, 20);
+		contentPane.add(textHr_fim);
+		textHr_fim.setColumns(10);
 		
-		textField_7 = new JTextField();
-		textField_7.setBounds(134, 253, 239, 20);
-		contentPane.add(textField_7);
-		textField_7.setColumns(10);
+		textArq_ini = new JTextField();
+		textArq_ini.setBounds(134, 253, 239, 20);
+		contentPane.add(textArq_ini);
+		textArq_ini.setColumns(10);
 		
-		textField_8 = new JTextField();
-		textField_8.setBounds(134, 278, 239, 20);
-		contentPane.add(textField_8);
-		textField_8.setColumns(10);
+		textArq_fim = new JTextField();
+		textArq_fim.setBounds(134, 278, 239, 20);
+		contentPane.add(textArq_fim);
+		textArq_fim.setColumns(10);
 		
-		textField_9 = new JTextField();
-		textField_9.setBounds(134, 303, 239, 20);
-		contentPane.add(textField_9);
-		textField_9.setColumns(10);
+		textCmd_aplic = new JTextField();
+		textCmd_aplic.setBounds(134, 303, 239, 20);
+		contentPane.add(textCmd_aplic);
+		textCmd_aplic.setColumns(10);
+		
+		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cadastraMudancas();
+			}
+		});
+		btnSalvar.setBounds(10, 358, 89, 23);
+		contentPane.add(btnSalvar);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fecharJanela();
+			}
+		});
+		btnCancelar.setBounds(284, 358, 89, 23);
+		contentPane.add(btnCancelar);
+	}
+	
+	protected void cadastraMudancas() {
+		// TODO Auto-generated method stub
+		boolean validaCampos = validaCampos();
+		
+		if(validaCampos)
+			salvarMudanca();
+		else
+			lancaMsgMudanca();
+	}
+
+	protected void lancaMsgMudanca() {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios.", "Validação de Campos", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	protected void salvarMudanca() {
+		// TODO Auto-generated method stub
+				
+		Mudanca mudanca = new Mudanca();
+		mudanca.setTITULO(textTitulo.getText());
+		//mudanca.setID_DISPOSITIVO(textEquipamento.getText());
+		//mudanca.setID_USUARIO(textGerente.getText());
+		try {
+			mudanca.setDATA_INI(new SimpleDateFormat("dd/MM/yyyy").parse(textDt_ini.getText()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			mudanca.setHORA_INI(new SimpleDateFormat("HHmmss").parse(textHr_ini.getText()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			mudanca.setDATA_FIM(new SimpleDateFormat("dd/MM/yyyy").parse(textDt_fim.getText()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			mudanca.setHORA_FIM(new SimpleDateFormat("HHmmss").parse(textHr_fim.getText()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mudanca.setARQUIVO_INI(textArq_ini.getText());
+		mudanca.setARQUIVO_FIM(textArq_fim.getText());
+		mudanca.setCOMANDOS_APLICADOS(textCmd_aplic.getText());
+		mudanca.setSTATUS(textStatus.getText());
+				
+		//SQLiteJDBC.insereUsuario(novo);
+		CadastroMudancasDAO.salvaMudanca(mudanca);
+		
+		JOptionPane.showMessageDialog(this, "Dispositivo cadastrado com sucesso.", "Dispositivo Cadastrado", JOptionPane.INFORMATION_MESSAGE);
+		this.dispose();
+	}
+
+	protected boolean validaCampos() {
+		// TODO Auto-generated method stub
+		if(textTitulo.getText().isEmpty())
+			return false;
+		
+		if(textDt_ini.getText().isEmpty())
+			return false;
+		
+		if(textHr_ini.getText().isEmpty())
+			return false;
+		
+		if(textDt_fim.getText().isEmpty())
+			return false;
+		
+		if(textHr_fim.getText().isEmpty())
+			return false;
+		
+		if(textArq_ini.getText().isEmpty())
+			return false;
+		
+		if(textArq_fim.getText().isEmpty())
+			return false;
+		
+		if(textCmd_aplic.getText().isEmpty())
+			return false;
+		
+		//if(textStatus.getText().isEmpty())
+		//	return false;
+						
+		return true;
 	}
 
 	protected void fecharJanela() {

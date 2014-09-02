@@ -1,16 +1,12 @@
 package br.com.engsoftproj.cadastros;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import java.awt.GridLayout;
-
 import javax.swing.JLabel;
-import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -18,18 +14,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JRadioButton;
-import javax.swing.JToggleButton;
-
 import br.com.engsoftproj.datamenbers.Usuario;
-import br.com.engsoftproj.db.SQLiteJDBC;
 import br.com.engsoftproj.enumerators.NivelAcesso;
-
-import sun.awt.image.PixelConverter.Bgrx;
 
 public class CadastroUsuario extends JFrame {
 
@@ -178,7 +168,7 @@ public class CadastroUsuario extends JFrame {
 		novo.setPassword(textSenha.getText());
 		novo.setNivelAcesso(NivelAcesso.values()[nivel]);
 		
-		SQLiteJDBC.insereUsuario(novo);
+		CadastroUsuarioDAO.salvaUsuario(novo);
 		
 		JOptionPane.showMessageDialog(this, "Usuário criado com sucesso.", "Usuário Criado", JOptionPane.INFORMATION_MESSAGE);
 		this.dispose();
