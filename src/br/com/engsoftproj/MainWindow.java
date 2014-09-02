@@ -1,5 +1,4 @@
 package br.com.engsoftproj;
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -20,6 +19,10 @@ import java.awt.event.ActionEvent;
 
 public class MainWindow extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2582215634677960796L;
 	private String usuarioLogado;
 	private Usuario usuario;
 	
@@ -69,7 +72,7 @@ public class MainWindow extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnCadUser = new JButton("Usu\u00E1rio");
+		JButton btnCadUser = new JButton("Usu\u00E1rios");
 		btnCadUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				abreCadastroUsuario();
@@ -92,6 +95,14 @@ public class MainWindow extends JFrame {
 			}
 		});
 		btnCadEvents.setBounds(145, 150, 106, 23);
+		
+		JButton btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sair();
+			}
+		});
+		btnSair.setBounds(145, 184, 106, 23);
 				
 		JLabel lblCadastro = new JLabel("Cadastro");
 		lblCadastro.setBounds(174, 57, 55, 14);
@@ -109,6 +120,7 @@ public class MainWindow extends JFrame {
 		contentPane.add(btnCadUser);
 		contentPane.add(btnCadDev);
 		contentPane.add(btnCadEvents);
+		contentPane.add(btnSair);
 		contentPane.add(lblCadastro);
 		contentPane.add(lblNewLabel);
 		contentPane.add(lblUsuario);
@@ -131,4 +143,12 @@ public class MainWindow extends JFrame {
 		CadastroMudancas f = new CadastroMudancas();
 		f.setVisible(true);   
 	}
+	
+	private void sair() {
+		// TODO Auto-generated method stub
+		Login f = new Login();
+		f.setVisible(true);
+		this.dispose();
+	}
+	
 }

@@ -1,6 +1,5 @@
 package br.com.engsoftproj;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,17 +10,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-import com.sun.xml.internal.ws.api.message.Message;
-
 import br.com.engsoftproj.datamenbers.Usuario;
 import br.com.engsoftproj.db.SQLiteJDBC;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.security.MessageDigest;
 
 public class Login extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6813858177380820042L;
 	private JPanel contentPane;
 	private JTextField textUser;
 	private JTextField textPasswd;
