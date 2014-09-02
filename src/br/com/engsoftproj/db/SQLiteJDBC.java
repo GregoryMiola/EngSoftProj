@@ -130,6 +130,7 @@ public class SQLiteJDBC
 	  	return loged;
   	}
 	
+	/*
 	public static void insereUsuario(Usuario user) {
 				
 		try{
@@ -145,5 +146,22 @@ public class SQLiteJDBC
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
   	  	}
-  	}	
+  	}
+	*/
+	
+	public static void execute(String sql) {
+		
+		try{
+			c = DriverManager.getConnection("jdbc:sqlite:sistema.db");
+			stmt = c.createStatement();			
+			 
+    	    stmt.executeUpdate(sql);
+			
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+  	  	}
+  	}
+	
 }
