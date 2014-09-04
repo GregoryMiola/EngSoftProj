@@ -12,6 +12,7 @@ import br.com.engsoftproj.cadastros.CadastroMudancas;
 import br.com.engsoftproj.cadastros.CadastroUsuario;
 import br.com.engsoftproj.datamenbers.Usuario;
 import br.com.engsoftproj.enumerators.NivelAcesso;
+import br.com.engsoftproj.validacoes.ValidaProposta;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -96,13 +97,21 @@ public class MainWindow extends JFrame {
 		});
 		btnCadEvents.setBounds(145, 150, 106, 23);
 		
+		JButton btnPendencias = new JButton("Pendências");
+		btnPendencias.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostraPendencias();
+			}
+		});
+		btnPendencias.setBounds(145, 184, 106, 23);
+		
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				sair();
 			}
 		});
-		btnSair.setBounds(145, 184, 106, 23);
+		btnSair.setBounds(145, 218, 106, 23);
 				
 		JLabel lblCadastro = new JLabel("Cadastro");
 		lblCadastro.setBounds(174, 57, 55, 14);
@@ -117,9 +126,14 @@ public class MainWindow extends JFrame {
 			btnCadUser.setEnabled(false);
 		}
 		
+		if(usuario.getNivelAcesso() == NivelAcesso.GERENTE){
+			btnCadEvents.setEnabled(false);
+		}
+		
 		contentPane.add(btnCadUser);
 		contentPane.add(btnCadDev);
 		contentPane.add(btnCadEvents);
+		contentPane.add(btnPendencias);
 		contentPane.add(btnSair);
 		contentPane.add(lblCadastro);
 		contentPane.add(lblNewLabel);
@@ -141,7 +155,13 @@ public class MainWindow extends JFrame {
 	private void abreCadastroEventos() {
 		// TODO Auto-generated method stub
 		CadastroMudancas f = new CadastroMudancas();
-		f.setVisible(true);   
+		f.setVisible(true);
+	}
+	
+	private void mostraPendencias() {
+		// TODO Auto-generated method stub
+		ValidaProposta f = new ValidaProposta();
+		f.setVisible(true);
 	}
 	
 	private void sair() {

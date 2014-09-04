@@ -1,4 +1,4 @@
-package br.com.engsoftproj.cadastros;
+package br.com.engsoftproj.validacoes;
 
 import java.awt.EventQueue;
 
@@ -12,7 +12,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import br.com.engsoftproj.cadastros.CadastroMudancasDAO;
 import br.com.engsoftproj.datamenbers.Mudanca;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
@@ -20,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CadastroMudancas extends JFrame {
+public class VisualizaMudanca extends JFrame {
 
 	/**
 	 * 
@@ -52,7 +54,7 @@ public class CadastroMudancas extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroMudancas frame = new CadastroMudancas();
+					VisualizaMudanca frame = new VisualizaMudanca();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -64,7 +66,7 @@ public class CadastroMudancas extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastroMudancas() {
+	public VisualizaMudanca() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 400, 427);
 		contentPane = new JPanel();
@@ -197,25 +199,35 @@ public class CadastroMudancas extends JFrame {
 		textAnalisadoPor.setBounds(134, 303, 239, 20);
 		contentPane.add(textAnalisadoPor);
 		textAnalisadoPor.setColumns(10);
-		textAnalisadoPor.setText(" ");
+		textAnalisadoPor.setText(" ");		
 		
-		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.addActionListener(new ActionListener() {
+		JButton btnAprovar = new JButton("Aprovar");
+		btnAprovar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cadastraMudancas();
+				atualizaMudanca();
 			}
 		});
-		btnSalvar.setBounds(10, 358, 89, 23);
-		contentPane.add(btnSalvar);
+		btnAprovar.setBounds(50, 358, 89, 23);
+		contentPane.add(btnAprovar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
+		JButton btnReprovar = new JButton("Reprovar");
+		btnReprovar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				atualizaMudanca();
+			}
+		});
+		btnReprovar.setBounds(150, 358, 89, 23);
+		contentPane.add(btnReprovar);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fecharJanela();
 			}
 		});
-		btnCancelar.setBounds(284, 358, 89, 23);
-		contentPane.add(btnCancelar);
+		btnVoltar.setBounds(250, 358, 89, 23);
+		contentPane.add(btnVoltar);
+		
 		
 		//-- adicionado
 		carregaComboEquip();
@@ -242,100 +254,15 @@ public class CadastroMudancas extends JFrame {
 	}
 	//-- adicionado
 	
-	protected void cadastraMudancas() {
+	
+	protected void atualizaMudanca() {
 		// TODO Auto-generated method stub
-		boolean validaCampos = validaCampos();
-		
-		if(validaCampos)
-			salvarMudanca();
-		else
-			lancaMsgMudanca();
-	}
-
-	protected void lancaMsgMudanca() {
-		// TODO Auto-generated method stub
-		JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios.", "Validação de Campos", JOptionPane.INFORMATION_MESSAGE);
-	}
-
-	protected void salvarMudanca() {
-		// TODO Auto-generated method stub
-				
-		Mudanca mudanca = new Mudanca();
-		mudanca.setTITULO(textTitulo.getText());
-		
-		//-- alterado
-		mudanca.setID_DISPOSITIVO(Integer.parseInt(cbEquipamento.getSelectedItem().toString().substring(0, 1)));		
-		mudanca.setID_USUARIO(Integer.parseInt(cbUsuario.getSelectedItem().toString().substring(0, 1)));
-		//-- alterado
-		
-		try {
-			mudanca.setDATA_INI(new SimpleDateFormat("dd/MM/yyyy").parse(textDt_ini.getText()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			mudanca.setHORA_INI(new SimpleDateFormat("HHmmss").parse(textHr_ini.getText()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			mudanca.setDATA_FIM(new SimpleDateFormat("dd/MM/yyyy").parse(textDt_fim.getText()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			mudanca.setHORA_FIM(new SimpleDateFormat("HHmmss").parse(textHr_fim.getText()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		mudanca.setARQUIVO_INI(textArq_ini.getText());
-		mudanca.setARQUIVO_FIM(textArq_fim.getText());
-		mudanca.setCOMANDOS_APLICADOS(textCmd_aplic.getText());
-		mudanca.setSTATUS(textStatus.getText());
-				
-		//SQLiteJDBC.insereUsuario(novo);
-		CadastroMudancasDAO.salvaMudanca(mudanca);
-		
+			
+			
 		JOptionPane.showMessageDialog(this, "Dispositivo cadastrado com sucesso.", "Dispositivo Cadastrado", JOptionPane.INFORMATION_MESSAGE);
 		this.dispose();
 	}
-
-	protected boolean validaCampos() {
-		// TODO Auto-generated method stub
-		if(textTitulo.getText().isEmpty())
-			return false;
 		
-		if(textDt_ini.getText().isEmpty())
-			return false;
-		
-		if(textHr_ini.getText().isEmpty())
-			return false;
-		
-		if(textDt_fim.getText().isEmpty())
-			return false;
-		
-		if(textHr_fim.getText().isEmpty())
-			return false;
-		
-		if(textArq_ini.getText().isEmpty())
-			return false;
-		
-		if(textArq_fim.getText().isEmpty())
-			return false;
-		
-		if(textCmd_aplic.getText().isEmpty())
-			return false;
-		
-		if(textStatus.getText().isEmpty())
-			return false;
-						
-		return true;
-	}
-
 	protected void fecharJanela() {
 		// TODO Auto-generated method stub
 		setVisible(false);

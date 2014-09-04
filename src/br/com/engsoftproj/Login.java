@@ -54,7 +54,7 @@ public class Login extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblLoginDoSistema = new JLabel("Login do Sistema");
-		lblLoginDoSistema.setBounds(73, 44, 109, 14);
+		lblLoginDoSistema.setBounds(86, 44, 109, 14);
 		contentPane.add(lblLoginDoSistema);
 		
 		JLabel lblNewLabel = new JLabel("Usu\u00E1rio");

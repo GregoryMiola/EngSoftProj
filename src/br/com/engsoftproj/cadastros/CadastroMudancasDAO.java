@@ -1,5 +1,8 @@
 package br.com.engsoftproj.cadastros;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.engsoftproj.datamenbers.Mudanca;
 import br.com.engsoftproj.db.SQLiteJDBC;
 
@@ -15,5 +18,46 @@ public class CadastroMudancasDAO {
 		
 		SQLiteJDBC.execute(sql.toString());
 	}
+	
+	//-- adicionado	
+	protected static void salvaMudanca(String status, int id){
+		StringBuilder sql = new StringBuilder();
+		sql.append("UPDATE MUDANCAS SET STATUS = '" + status + "' WHERE ID =  " + id);
+		
+		
+		
+		SQLiteJDBC.execute(sql.toString());
+	}
+	
+	public static List<String> buscaEquipamentos(){
+		List<String> lst = new ArrayList<String>();
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM DEVICES ");
+		
+		lst = SQLiteJDBC.getLista(sql.toString());
+		
+		return lst;		
+	}
+	
+	public static List<String> buscaMudancaPorStatus(String status){
+		List<String> lst = new ArrayList<String>();
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM MUDANCAS WHERE STATUS = '" + status + "' ");
+		
+		lst = SQLiteJDBC.getLista(sql.toString());
+		
+		return lst;		
+	}
+	
+	public static List<String> buscaUsuarios(){
+		List<String> lst = new ArrayList<String>();
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM USUARIOS ");
+		
+		lst = SQLiteJDBC.getLista(sql.toString());
+		
+		return lst;		
+	}
+	//-- adicionado
 
 }

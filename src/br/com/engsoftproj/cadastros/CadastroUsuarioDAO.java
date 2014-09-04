@@ -23,7 +23,7 @@ public class CadastroUsuarioDAO {
 	
 	protected static void excluiUsuarioPorUserName(Usuario novo){
 		StringBuilder sql = new StringBuilder();
-		sql.append("DELETE FROM USUARIOS WHERE USERNAME = '" + novo.getUsername() + "' ");		 
+		sql.append("DELETE FROM USUARIOS WHERE USERNAME = '" + novo.getUsername() + "' ");
 		
 		SQLiteJDBC.execute(sql.toString());
 	}
@@ -44,7 +44,7 @@ public class CadastroUsuarioDAO {
 	
 	protected static void buscaUsuarioPorUserName(Usuario novo){
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM USUARIOS WHERE USERNAME = '" + novo.getUsername() + "' ");		 
+		sql.append("SELECT * FROM USUARIOS WHERE USERNAME = '" + novo.getUsername() + "' ");
 		
 		SQLiteJDBC.execute(sql.toString());
 	}

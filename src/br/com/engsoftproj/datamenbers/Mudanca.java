@@ -17,6 +17,9 @@ public class Mudanca {
 	private String ARQUIVO_FIM;
 	private String COMANDOS_APLICADOS;
 	private String STATUS;
+	//-- ADICIONADO
+	private String ANALISADO;
+	//-- ADICIONADO
 	
 	public Mudanca(){
 		
@@ -93,6 +96,16 @@ public class Mudanca {
 	}
 	public void setSTATUS(String sTATUS) {
 		STATUS = sTATUS;
-	}	
+	}
+	
+	//-- ADICIONADO
+	public String getANALISADO() {
+		return ANALISADO;
+	}
+
+	public void setANALISADO(String aNALISADO) {
+		ANALISADO = aNALISADO;
+	}
+	//-- ADICIONADO
 
 }

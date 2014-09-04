@@ -23,6 +23,12 @@ import br.com.engsoftproj.enumerators.NivelAcesso;
 
 public class CadastroUsuario extends JFrame {
 
+	/**
+	 * 
+	 */
+	//----- adicionado por juliano
+	private static final long serialVersionUID = -2129497194201146963L;
+	//-----
 	private JPanel contentPane;
 	private JTextField textNome;
 	private JTextField textCargo;
